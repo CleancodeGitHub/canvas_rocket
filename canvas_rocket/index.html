@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>MARS</title>
+    <link href="style.css" type="text/css" rel="stylesheet">
+
+</head>
+
+<body>
+    <!-------------test---------------------->
+    <section>
+        <div class="rocket_1">
+            <img src="img/rocke11.png" alt="rocket" width="250" height="200">
+        </div>
+        <div class="rocket_2">
+            <img src="img/3-.png" alt="rocket" width="380" height="300">
+        </div>
+
+    </section>
+    </div>
+    <!-------------------img rocks---------------------->
+    <div class="rocket_33">
+        <img src="img/2.png" width="200" height="200">
+        <img src="img/77.png" width="10" height="10">
+        <img src="img/77.png" width="60" height="50">
+        <img src="img/77.png" width="45" height="35">
+    </div>
+
+    <h1 id="myH2" style="position:absolute;left:250px;top:650px;">
+        <img src="img/77.png" width=120px height=200px;>
+
+    </h1>
+    <h1 id="myH2" style="position:absolute;left:85px;top:650px;">
+        <img src="img/rock.png" width=220px height=250px;>
+    </h1>
+
+    <!-------------------img rocks---------------------->
+
+    <canvas id="MARS" width="2000" height="1100"></canvas>
+
+
+    <script>
+        // Constants
+        const fps = 30; // Frames per second
+        const numStars = 2000; // Number of stars
+        const starSpeed = 0; // Speed of stars
+
+        // Canvas and context
+        const canvas = document.getElementById("MARS");
+        const context = canvas.getContext("2d");
+        let gradient;
+        const stars = [];
+
+        // Initialize stars
+        const xVelocity = starSpeed * (Math.random() >= 0 ? 1 : -1);
+        const yVelocity = starSpeed * (Math.random() >= 0 ? 1 : -1);
+        for (let i = 0; i < numStars; i++) {
+            const speedMult = Math.random() * 3 + 5;
+            stars[i] = {
+                radius: Math.random() * 1.8,
+                x: Math.floor(Math.random() * canvas.width + 5),
+                y: Math.floor(Math.random() * canvas.height + 1),
+                xv: xVelocity * speedMult / fps,
+                yv: yVelocity * speedMult / fps
+            };
+        }
+
+        // Function to handle rocket_myH2
+        function myFunction() {
+            alert(document.getElementById("myH2").style.position);
+        }
+
+        // Update function
+        function update() {
+            // Clear canvas
+            context.fillStyle = "black";
+            context.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Draw stars
+            context.fillStyle = "white";
+            for (let i = 0; i < numStars; i++) {
+                context.beginPath();
+                context.arc(stars[i].x, stars[i].y, stars[i].radius, 0, Math.PI * 2, false);
+                context.fill();
+
+                stars[i].y += stars[i].yv;
+                if (stars[i].y < 0) {
+                    // Reset stars that move out of view
+                }
+            }
+
+            // Draw halo
+            gradient = context.createRadialGradient(canvas.width * 0.2, canvas.height * 0.5, canvas.width * 0.1, canvas.width * 0.5, canvas.height * 0.5, canvas.width * 0.5);
+            gradient.addColorStop(0, "#ff5c33");
+            gradient.addColorStop(1, "transparent");
+
+            context.fillStyle = gradient;
+            context.beginPath();
+            context.arc(canvas.width * 0.5, canvas.height * 0.5, canvas.width * 0.5, 0, Math.PI * 2, false);
+            context.fill();
+
+            // Draw planet
+            gradient = context.createRadialGradient(canvas.width * 0.4, canvas.height * 0.4, 0, canvas.width * 0.4, canvas.height * 0.4, canvas.width * 0.12);
+            gradient.addColorStop(0, "#FDA600");
+            gradient.addColorStop(1, "#C1440E");
+
+            context.fillStyle = gradient;
+            context.beginPath();
+            context.arc(canvas.width * 0.2, canvas.height * 0.5, canvas.width * 0.15, 0, Math.PI * 2, false);
+            context.fill();
+        }
+
+        // Start animation
+        setInterval(update, 1000 / fps);
+    </script>
+
+</body>
+
+</html>
